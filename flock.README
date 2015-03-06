@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#This branch has one purpose: to be compatible with https://github.com/WhisperSystems/Flock
+# (bonus 'net-point's for the usual ease of install) 
+
+#############
+# variables #
+#############
+
+Radicale_etc_dir='/etc/radicale'
+Radicale_log_file='/var/log/radicale'
+Radicale_var_dir='/var/radicale/collections'
+
+
+###########
+# install #
+###########
+
+if [ `grep ^radicale /etc/group 2>&1 1>/dev/null && echo 1 || echo 0` -lt 1 ];then
+    groupadd radicale
+fi
+# create radicale user with radicale group and /sbin/nologin
+
+if [ ! -f "$Radicale_log_file" ]; then
+    if [ ! -d "$Radicale_log_file" ];then
+        touch $Radicale_log_file
+        #chown apache:radicale $Radicale_log_file
+    else
+        echo There is a ${Radiale_log_file}/ directory and we expect a file
+        exit
+    fi
+fi
+if [ ! -d "$Radicale_etc_dir" ]; then
+  mkdir $Radicale_etc_dir
+fi
+if [ ! -f "$Radicale_etc_dir/config" ]; then
+ cp config $Radicale_etc_dir/config
+fi
+if [ ! -f "$Radicale_etc_dir/logging" ]; then
+ cp config $Radicale_etc_dir/logging
+fi
+if [ ! -f "$Radicale_etc_dir/users" ]; then
+ cp config $Radicale_etc_dir/users
+fi
+if [ ! -f "$Radicale_etc_dir/rights" ]; then
+ cp config $Radicale_etc_dir/rights
+fi
+
+if [ ! -d "$Radicale_var_dir" ]; then
+ mkdir $Radicale_var_dir
+        #chown apache:radicale $Radicale_var_dir
+fi
+
+

@@ -50,6 +50,7 @@ INITIAL_CONFIG = {
         "dns_lookup": "True",
         "base_prefix": "/",
         "can_skip_base_prefix": "False",
+        "creation_on_PROPFIND_request": "True",
         "realm": "Radicale - Password Required"},
     "well-known": {
          "caldav": "/%(user)s/caldav/",

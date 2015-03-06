@@ -25,13 +25,14 @@
 #pid =
 
 # SSL flag, enable HTTPS protocol
-#ssl = False
+ssl = True
 
 # SSL certificate path
-#certificate = /etc/apache2/ssl/server.crt
+certificate = /etc/pki/radicale/certs/radicale.crt
 
 # SSL private key
 #key = /etc/apache2/ssl/server.key
+key = /etc/pki/radicale/private/radicale.key
 
 # SSL Protocol used. See python's ssl module for available values
 #protocol = PROTOCOL_SSLv23
@@ -49,38 +50,40 @@
 #can_skip_base_prefix = False
 
 # Message displayed in the client when a password is needed
-#realm = Radicale - Password Required
+realm = Radicale for flock - Password Required
 
+# This is the new setting requires for flock
+creation_on_PROPFIND_request = False
 
 [encoding]
 
 # Encoding for responding requests
-#request = utf-8
+request = utf-8
 
 # Encoding for storing local collections
-#stock = utf-8
+stock = utf-8
 
 
 [well-known]
 
 # Path where /.well-known/caldav/ is redirected
-#caldav = '/%(user)s/caldav/'
+caldav = '/%(user)s/caldav/'
 
 # Path where /.well-known/carddav/ is redirected
-#carddav = '/%(user)s/carddav/'
+carddav = '/%(user)s/carddav/'
 
 
 [auth]
 
 # Authentication method
 # Value: None | htpasswd | IMAP | LDAP | PAM | courier | http | remote_user | custom
-#type = None
+type = htpasswd
 
 # Custom authentication handler
 #custom_handler =
 
 # Htpasswd filename
-#htpasswd_filename = /etc/radicale/users
+htpasswd_filename = /etc/radicale/users
 
 # Htpasswd encryption method
 # Value: plain | sha1 | ssha | crypt
@@ -140,13 +143,14 @@
 
 # Rights backend
 # Value: None | authenticated | owner_only | owner_write | from_file | custom
-#type = None
+type = from_file
 
 # Custom rights handler
 #custom_handler =
 
 # File for rights management from_file
 #file = ~/.config/radicale/rights
+file = /etc/radicale/rights
 
 
 [storage]
@@ -157,13 +161,14 @@
 #          OTHER BACKENDS ARE NOT READY FOR PRODUCTION.
 # -------
 # Value: filesystem | multifilesystem | database | custom
-#type = filesystem
+type = filesystem
 
 # Custom storage handler
 #custom_handler =
 
 # Folder for storing local collections, created if not present
 #filesystem_folder = ~/.config/radicale/collections
+filesystem_folder = /var/radicale/collections
 
 # Database URL for SQLAlchemy
 # dialect+driver://user:password@host/dbname[?key=value..]
@@ -178,9 +183,9 @@
 # If no config is given, simple information is printed on the standard output
 # For more information about the syntax of the configuration file, see:
 # http://docs.python.org/library/logging.config.html
-#config = /etc/radicale/logging
+config = /etc/radicale/logging
 # Set the default logging level to debug
-#debug = False
+debug = True
 # Store all environment variables (including those set in the shell)
 #full_environment = False
 
