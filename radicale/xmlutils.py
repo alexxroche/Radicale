@@ -243,11 +243,13 @@ def propfind(path, xml_request, collections, user=None):
 def _propfind_response(path, item, props, user):
     """Build and return a PROPFIND response."""
     is_collection = isinstance(item, ical.Collection)
+    response = ET.Element(_tag("D", "response"))
     if is_collection:
         with item.props as properties:
             collection_props = properties
+    elif not config.getboolean("server", "creation_on_PROPFIND_request"):
+       return response
 
-    response = ET.Element(_tag("D", "response"))
 
     href = ET.Element(_tag("D", "href"))
     uri = item.url if is_collection else "%s/%s" % (path, item.name)
